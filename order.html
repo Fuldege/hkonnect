@@ -1089,19 +1089,60 @@ function buildQuote() {
 }
 
 // ─── Submit ───
-function submitOrder() {
+// 👇 把你的 Apps Script 部署网址粘贴在这里
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+async function submitOrder() {
   if (!uploadedFile) {
     document.getElementById('e-upload').classList.add('show');
     return;
   }
   document.getElementById('e-upload').classList.remove('show');
 
-  // Generate order number
-  const orderNo = 'HK' + Date.now().toString().slice(-8);
-  document.getElementById('success-order-no').textContent = `订单号：${orderNo}`;
+  const btn = document.querySelector('#panel3 .btn-next');
+  btn.disabled = true;
+  btn.textContent = '提交中...';
 
-  // In real deployment: submit to Google Sheets via Apps Script
-  // For now, show success screen
+  const orderNo = 'HK' + Date.now().toString().slice(-8);
+  const regionNames = { xigong:'新界·西贡', shatin:'沙田', other:'全港其他地区' };
+  const provVal = document.getElementById('f-destprov').value;
+  const provName = provVal.split('_')[1] || provVal;
+
+  const payload = {
+    orderNo,
+    submitTime: new Date().toLocaleString('zh-HK', { timeZone: 'Asia/Hong_Kong' }),
+    name:       document.getElementById('f-name').value,
+    phone:      document.getElementById('f-phone').value,
+    wechat:     document.getElementById('f-wechat').value,
+    region:     regionNames[selectedRegion],
+    pickup:     document.getElementById('f-pickup').value,
+    pickDate:   document.getElementById('f-pickdate').value,
+    pickTime:   document.getElementById('f-picktime').value,
+    weightKg:   quoteData.kg,
+    destProv:   provName,
+    destCity:   document.getElementById('f-destcity').value,
+    destAddr:   document.getElementById('f-destaddr').value,
+    recvName:   document.getElementById('f-recvname').value,
+    recvPhone:  document.getElementById('f-recvphone').value,
+    note:       document.getElementById('f-note').value,
+    totalPrice: quoteData.isRemote ? '待客服报价' : quoteData.total,
+    deposit:    quoteData.isRemote ? '待客服确认' : quoteData.deposit,
+    payMethod:  selectedPay === 'wechat' ? '微信支付' : '支付宝',
+  };
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+  } catch(err) {
+    // no-cors mode won't throw on success, only on network failure
+    console.error('Submit error:', err);
+  }
+
+  document.getElementById('success-order-no').textContent = `订单号：${orderNo}`;
   goStep(4);
 }
 </script>
