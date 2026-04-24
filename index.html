@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKonnect · 香港行李托运服务</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+
+  :root {
+    --dark: #1C2B2A;
+    --dark2: #243534;
+    --teal: #7ECFBE;
+    --gold: #F7C355;
+    --gold-dark: #C89A10;
+    --cream: #FAFAF7;
+    --text: #1A1A1A;
+    --muted: #6B6B6B;
+    --border: #E5E0D5;
+    --red: #D94F3D;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--dark);
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+  .nav-brand {
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+  .nav-brand span { color: var(--gold); }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: #9BB5B2;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+
+  /* HERO */
+  .hero {
+    background: var(--dark);
+    padding: 64px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: rgba(247,195,85,0.06);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(126,207,190,0.05);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--teal);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 8vw, 64px);
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+  .hero h1 span { color: var(--gold); }
+  .hero-sub {
+    font-size: 16px;
+    color: #9BB5B2;
+    margin-top: 12px;
+    margin-bottom: 24px;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+  .hero-tag {
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #ccc;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .hero-price {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .hero-price span { color: var(--gold); font-size: 36px; font-weight: 900; }
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--dark);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 24px;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+
+  /* SECTIONS */
+  section { padding: 56px 24px; max-width: 900px; margin: 0 auto; }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 900;
+    color: var(--dark);
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+  }
+
+  /* FLOW */
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .flow-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+  }
+  .flow-num {
+    width: 32px; height: 32px;
+    background: var(--dark);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 900;
+    margin-bottom: 12px;
+  }
+  .flow-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .flow-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .flow-note {
+    font-size: 11px;
+    color: #AAA;
+    margin-top: 32px;
+    padding-left: 14px;
+    border-left: 2px solid var(--border);
+    line-height: 1.7;
+  }
+
+  /* CALCULATOR */
+  #calculator { background: var(--dark); padding: 56px 24px; }
+  #calculator .inner { max-width: 700px; margin: 0 auto; }
+  #calculator .section-label { color: var(--teal); }
+  #calculator .section-title { color: #fff; }
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 560px) { .calc-grid { grid-template-columns: 1fr; } }
+  .calc-field label {
+    display: block;
+    font-size: 12px;
+    color: var(--teal);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .calc-field select,
+  .calc-field input {
+    width: 100%;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 15px;
+    padding: 12px 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .calc-field select:focus,
+  .calc-field input:focus { border-color: var(--gold); }
+  .calc-field select option { background: var(--dark2); color: #fff; }
+  .calc-vol { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .calc-vol input { text-align: center; }
+  .calc-toggle {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .calc-toggle button {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #9BB5B2;
+    font-size: 13px;
+    padding: 12px 8px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+  .calc-toggle button.active {
+    background: var(--gold);
+    color: var(--dark);
+    font-weight: 700;
+  }
+  .calc-btn {
+    width: 100%;
+    background: var(--gold);
+    color: var(--dark);
+    font-weight: 900;
+    font-size: 16px;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    margin-top: 8px;
+    transition: opacity 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .calc-btn:hover { opacity: 0.9; }
+  .calc-result {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(247,195,85,0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 20px;
+    display: none;
+  }
+  .calc-result.show { display: block; }
+  .result-total {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .result-sub { font-size: 13px; color: #9BB5B2; margin-bottom: 16px; }
+  .result-breakdown {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+  .result-row .label { color: #9BB5B2; }
+  .result-row .val { color: #fff; font-weight: 500; }
+  .result-row .val.gold { color: var(--gold); }
+  .result-note {
+    font-size: 12px;
+    color: #666;
+    margin-top: 14px;
+    line-height: 1.7;
+  }
+
+  /* PRICING */
+  .pricing-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 480px) { .pricing-top { grid-template-columns: 1fr; } }
+  .price-region {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+  .price-region.featured { border-color: var(--gold-dark); border-width: 1.5px; }
+  .price-region-name {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .price-big {
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1;
+  }
+  .price-big.gold { color: var(--gold-dark); }
+  .price-unit { font-size: 16px; font-weight: 400; color: var(--muted); }
+  .price-note { font-size: 11px; color: #bbb; margin-top: 8px; line-height: 1.6; }
+
+  .tier-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .tier-header {
+    background: var(--dark);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tier-header-text { font-size: 13px; color: var(--teal); font-weight: 700; letter-spacing: 1px; }
+  .tier-body { padding: 4px 0; }
+  .tier-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid #F5F5F0;
+  }
+  .tier-row:last-child { border-bottom: none; }
+  .tier-range { font-size: 14px; color: var(--muted); }
+  .tier-price { font-size: 18px; font-weight: 700; }
+  .tier-price.highlight { color: var(--gold-dark); }
+  .tier-price.best { color: var(--red); font-size: 22px; }
+  .tier-badge {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+  .badge-save { background: #FFF4E0; color: var(--gold-dark); }
+  .badge-best { background: #FFF0EE; color: var(--red); }
+
+  .info-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+  .info-list li {
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    gap: 10px;
+    line-height: 1.6;
+  }
+  .info-list li::before {
+    content: '※';
+    color: var(--teal);
+    flex-shrink: 0;
+  }
+
+  /* BOX PRICES */
+  .box-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  @media (max-width: 480px) { .box-grid { grid-template-columns: 1fr; } }
+  .box-card {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .box-size { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .box-price { font-size: 20px; font-weight: 700; }
+  .box-dim { font-size: 11px; color: #bbb; margin-top: 2px; }
+
+  /* FAQ */
+  #faq { background: #F5F3EE; padding: 56px 24px; }
+  #faq .inner { max-width: 800px; margin: 0 auto; }
+  .faq-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .faq-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .faq-q {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 18px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: background 0.15s;
+  }
+  .faq-q:hover { background: #FAFAF5; }
+  .faq-q.open { color: var(--dark); }
+  .faq-icon {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    transition: transform 0.2s, background 0.2s;
+    color: var(--muted);
+  }
+  .faq-q.open .faq-icon {
+    transform: rotate(45deg);
+    background: var(--dark);
+    color: var(--gold);
+    border-color: var(--dark);
+  }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .faq-a.open { max-height: 600px; }
+  .faq-a-inner {
+    padding: 0 20px 18px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.8;
+    border-top: 1px solid #F0EDE8;
+  }
+  .faq-check { margin-top: 10px; }
+  .faq-check div { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 5px; font-size: 13px; }
+  .ok { color: #3B8B6D; }
+  .no { color: var(--red); }
+
+  /* CONTACT */
+  .contact-card {
+    background: var(--dark);
+    border-radius: 16px;
+    padding: 40px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    top: -50px; right: -50px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(247,195,85,0.07);
+    pointer-events: none;
+  }
+  .contact-eyebrow { font-size: 11px; letter-spacing: 3px; color: var(--teal); margin-bottom: 12px; }
+  .contact-title { font-size: 26px; font-weight: 900; color: #fff; margin-bottom: 8px; }
+  .contact-sub { font-size: 14px; color: #9BB5B2; margin-bottom: 32px; }
+  .wechat-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 16px 24px;
+    margin-bottom: 16px;
+  }
+  .wechat-icon {
+    width: 44px; height: 44px;
+    background: #07C160;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .wechat-label { text-align: left; }
+  .wechat-label .t1 { font-size: 12px; color: #9BB5B2; }
+  .wechat-label .t2 { font-size: 18px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+  .copy-btn {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #9BB5B2;
+    font-size: 13px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.2s;
+    margin-top: 8px;
+  }
+  .copy-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .contact-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+    text-align: left;
+  }
+  @media (max-width: 560px) { .contact-steps { grid-template-columns: 1fr; } }
+  .contact-step { background: rgba(255,255,255,0.05); border-radius: 10px; padding: 16px; }
+  .contact-step-num { font-size: 11px; color: var(--teal); letter-spacing: 2px; margin-bottom: 6px; }
+  .contact-step-text { font-size: 13px; color: #ccc; line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    background: #111;
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+    color: #555;
+  }
+  footer span { color: var(--gold); }
+
+  /* MOBILE NAV HIDE */
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">HK<span>ONNECT</span></div>
+  <ul class="nav-links">
+    <li><a href="#flow">服务流程</a></li>
+    <li><a href="#calculator">费用计算</a></li>
+    <li><a href="#pricing">价目表</a></li>
+    <li><a href="#faq">常见问题</a></li>
+    <li><a href="#contact">预约联系</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">HKONNECT · 2026 毕业季</div>
+  <h1>HK<span>ONNECT</span></h1>
+  <p class="hero-sub">香港 → 内地 · 商务车接送 · 行李托运一站到家</p>
+  <div class="hero-tags">
+    <span class="hero-tag">过关免排队</span>
+    <span class="hero-tag">内地直邮到家</span>
+    <span class="hero-tag">寄送+运输一价全包</span>
+    <span class="hero-tag">实时物流追踪</span>
+  </div>
+  <div class="hero-price">低至 <span>6元/KG</span></div>
+  <a href="#calculator" class="btn-primary">立即计算费用</a>
+</div>
+
+<!-- FLOW -->
+<section id="flow">
+  <div class="section-label">— 服务流程 —</div>
+  <div class="section-title">四步搞定，轻松寄回家</div>
+  <div class="flow-grid">
+    <div class="flow-card">
+      <div class="flow-num">1</div>
+      <div class="flow-title">预约取件</div>
+      <div class="flow-desc">扫描二维码或添加客服微信，提前 2 天预约，告知取件时间和地址</div>
+    </div>
+    <div class="flow-card">
+      <div class="flow-num">2</div>
+      <div class="flow-title">上门接货</div>
+      <div class="flow-desc">楼下交接，人与行李一同乘商务车到达口岸，无需自己拖行李</div>
+    </div>
+    <div class="flow-card">
+      <div class="flow-num">3</div>
+      <div class="flow-title">两地过关</div>
+      <div class="flow-desc">香港关口只需出示证件，深圳关口需人与行李下车过安检</div>
+    </div>
+    <div class="flow-card">
+      <div class="flow-num">4</div>
+      <div class="flow-title">物流到家</div>
+      <div class="flow-desc">与京东物流独家合作，实时推送物流信息，正常 2-3 天送达</div>
+    </div>
+  </div>
+  <p class="flow-note">*注意：深圳关口海关要求人和行李必须下车过安检<br>*有需要可提前联系我们预约免费小推车（需提前 1 天深圳自取）</p>
+</section>
+
+<!-- CALCULATOR -->
+<div id="calculator">
+  <div class="inner">
+    <div class="section-label">— 费用计算器 —</div>
+    <div class="section-title">估算你的运费</div>
+
+    <div class="calc-grid">
+      <div class="calc-field">
+        <label>取件地区</label>
+        <select id="region" onchange="onRegionChange()">
+          <option value="xigong">新界 · 西贡（固定 16元/KG）</option>
+          <option value="shatin">沙田（固定 15元/KG）</option>
+          <option value="other">全港其他地区（阶梯定价，30kg起）</option>
+        </select>
+      </div>
+      <div class="calc-field">
+        <label>寄送省份</label>
+        <select id="dest">
+          <option value="normal">普通地区（统一价格）</option>
+          <option value="remote">偏远地区（新疆/西藏/青海/甘肃/宁夏/内蒙古）</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="calc-field" style="margin-bottom: 16px;">
+      <label>计费方式</label>
+      <div class="calc-toggle">
+        <button class="active" id="btn-weight" onclick="switchMode('weight')">按重量（KG）</button>
+        <button id="btn-vol" onclick="switchMode('vol')">按体积（cm）</button>
+      </div>
+    </div>
+
+    <div id="mode-weight" class="calc-field" style="margin-bottom: 16px;">
+      <label>行李重量（KG）</label>
+      <input type="number" id="weight" placeholder="例如：45" min="0" step="0.1">
+    </div>
+
+    <div id="mode-vol" style="display:none; margin-bottom: 16px;">
+      <div class="calc-field">
+        <label>尺寸（长 × 宽 × 高，单位 cm）</label>
+        <div class="calc-vol">
+          <input type="number" id="vol-l" placeholder="长" min="0">
+          <input type="number" id="vol-w" placeholder="宽" min="0">
+          <input type="number" id="vol-h" placeholder="高" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div id="region-hint" style="display:none; margin-bottom:16px; background:rgba(247,195,85,0.1); border:1px solid rgba(247,195,85,0.3); border-radius:8px; padding:12px 14px; font-size:13px; color:#F7C355; line-height:1.7;">
+      ⚠️ 其他地区最低消费 <strong>900元（约30kg）</strong>，不接30kg以下散单。<br>
+      如重量较少，建议选择西贡或沙田固定线路，或凑满30kg再寄。
+    </div>
+    <button class="calc-btn" onclick="calculate()">计算运费</button>
+
+    <div class="calc-result" id="result-box">
+      <div class="result-total" id="res-total"></div>
+      <div class="result-sub" id="res-sub"></div>
+      <div class="result-breakdown" id="res-breakdown"></div>
+      <div class="result-note" id="res-note"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-label">— 价目表 —</div>
+  <div class="section-title">方案 B · 按地区 + 阶梯定价</div>
+
+  <div class="pricing-top" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="price-region featured">
+      <div class="price-region-name">新界 · 西贡</div>
+      <div class="price-big gold">16<span class="price-unit"> 元/KG</span></div>
+      <div class="price-note">固定单价 · 无最低消费<br>仅适用于校园合作学会会员</div>
+    </div>
+    <div class="price-region">
+      <div class="price-region-name">沙田</div>
+      <div class="price-big">15<span class="price-unit"> 元/KG</span></div>
+      <div class="price-note">固定单价 · 无最低消费<br>比其他地区更优惠</div>
+    </div>
+    <div class="price-region">
+      <div class="price-region-name">全港其他地区</div>
+      <div class="price-big" style="font-size:28px;">阶梯<span class="price-unit"> 定价</span></div>
+      <div class="price-note">最低消费 900元（30kg起）<br>寄得越多越划算</div>
+    </div>
+  </div>
+
+  <div class="tier-card">
+    <div class="tier-header">
+      <span class="tier-header-text">阶梯定价 · 寄得越多越划算</span>
+      <span style="font-size:12px;color:#5A8A82;">含物流到家全程</span>
+    </div>
+    <div class="tier-body">
+      <div class="tier-row">
+        <span class="tier-range">0 – 30 kg</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="tier-price">900 <span style="font-size:13px;font-weight:400;color:#aaa;">元</span></span>
+        </div>
+      </div>
+      <div class="tier-row">
+        <span class="tier-range">30 – 60 kg 部分</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="tier-price">15 <span style="font-size:13px;font-weight:400;color:#aaa;">元/KG</span></span>
+        </div>
+      </div>
+      <div class="tier-row">
+        <span class="tier-range">60 – 100 kg 部分</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="tier-badge badge-save">更省</span>
+          <span class="tier-price highlight">12 <span style="font-size:13px;font-weight:400;">元/KG</span></span>
+        </div>
+      </div>
+      <div class="tier-row">
+        <span class="tier-range">100 kg 以上部分</span>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span class="tier-badge badge-best">最划算</span>
+          <span class="tier-price best">6 <span style="font-size:15px;font-weight:400;">元/KG</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="info-list">
+    <li>一价全包，含物流到家全过程费用，不收取额外服务费/过关费</li>
+    <li>按实际重量与体积重量（长×宽×高÷6000）较高者计算</li>
+    <li>与京东物流独家合作，全程保险，运输无忧</li>
+    <li>国内偏远地区（西藏、新疆、青海、甘肃、宁夏、内蒙古）请咨询客服报价</li>
+  </ul>
+
+  <div style="margin-top: 28px;">
+    <div class="section-label" style="margin-bottom: 12px;">— 包装费用（另付）—</div>
+    <div class="box-grid">
+      <div class="box-card">
+        <div class="box-size">大箱子</div>
+        <div class="box-price">15 元/个</div>
+        <div class="box-dim">60cm × 50cm × 40cm</div>
+      </div>
+      <div class="box-card">
+        <div class="box-size">中箱子</div>
+        <div class="box-price">6 元/个</div>
+        <div class="box-dim">60cm × 40cm × 30cm</div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#bbb;margin-top:10px;">不需要完全打包好，只需装起来，到集运点会统一打包发出</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<div id="faq">
+  <div class="inner">
+    <div class="section-label">— 常见问题 —</div>
+    <div class="section-title">有问题？这里找答案</div>
+    <div class="faq-grid">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          一价全包包括什么？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            一价全包包括从香港接货到寄送回内地家里的<strong>所有费用</strong>，不会额外收取上门费、服务费、过关费等。<br><br>
+            <strong>⚠️ 注意：</strong>包装费用另付<br>
+            · 大箱子（60×50×40cm）：15元/个<br>
+            · 中箱子（60×40×30cm）：6元/个
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          提前多久预约？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            请提前 <strong>2天</strong> 预约哦！<br><br>
+            如有急单，请直接添加客服微信 <strong>HKonnect</strong> 联系我们。
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          预约流程是怎样的？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            三步，很快速：<br><br>
+            <strong>① 添加客服微信（HKonnect）</strong><br>
+            <strong>② 客服收集基本资料</strong>（地区、重量、日期）<br>
+            <strong>③ 预约成功！</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          过关流程是怎样的？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            · <strong>香港关口</strong>：不需要下车，只需出示证件即可 ✅<br><br>
+            · <strong>深圳关口</strong>：海关要求人和行李必须下车过安检 ⚠️
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          行李太多，有小推车提供吗？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            有！我们提供<strong>免费租用小推车</strong>🛒<br><br>
+            需要提前联系客服，提前一天至<strong>深圳自取</strong>哦。
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          大概多久可以寄到家？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            正常情况下 <strong>2-3天</strong> 寄送到家 📦<br><br>
+            我们与京东物流独家合作，全程可实时追踪物流信息。
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          寄到我家多少钱？偏远地区怎么算？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            内地除较偏远地区外，<strong>其他地区均为统一价格</strong>。<br><br>
+            <strong>偏远地区</strong>（新疆、宁夏、西藏、青海、甘肃、内蒙古）请联系客服另行报价哦。
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          需不需要自己打包好？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <strong>不需要完全打包好</strong>，只需要装起来就可以了 👍<br><br>
+            到了我们的快递集运点，会统一集中打包再发出，放心交给我们！
+          </div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          哪些货物不能带过关？
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            除一般违禁品外，以下是常见物品说明：
+            <div class="faq-check" style="margin-top:12px;">
+              <div><span class="ok">✔</span> 可以带：二手平价家电（小型洗衣机、挂烫机、显示屏、主机等）</div>
+              <div><span class="no">✘</span> 不可以：全新贵价电器</div>
+              <div><span class="no">✘</span> 不可以：含敏感内容的杂志、报刊、书籍</div>
+              <div><span class="ok">✔</span> 可以带：穿过的鞋子、衣服</div>
+              <div><span class="no">✘</span> 不可以：全新奢侈品鞋子衣服（会被扣税）</div>
+              <div><span class="ok">✔</span> 可以带：被褥、可卷起的床垫、小型/可拆装家具</div>
+              <div><span class="no">✘</span> 不可以：不能折叠的床垫、超大家具</div>
+            </div>
+            <p style="margin-top:12px;color:#aaa;">如有疑问，请联系客服确认 😊</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-card">
+    <div class="contact-eyebrow">CONTACT & BOOKING</div>
+    <div class="contact-title">准备好了？联系我们预约</div>
+    <div class="contact-sub">添加客服微信，3步完成预约，提前2天联系哦</div>
+
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;">
+      <div class="wechat-box">
+        <div class="wechat-icon">💬</div>
+        <div class="wechat-label">
+          <div class="t1">客服微信</div>
+          <div class="t2">HKonnect</div>
+        </div>
+      </div>
+      <button class="copy-btn" onclick="copyWechat()">复制微信号</button>
+    </div>
+
+    <div class="contact-steps">
+      <div class="contact-step">
+        <div class="contact-step-num">STEP 01</div>
+        <div class="contact-step-text">添加客服微信<br><strong style="color:#fff;">HKonnect</strong></div>
+      </div>
+      <div class="contact-step">
+        <div class="contact-step-num">STEP 02</div>
+        <div class="contact-step-text">告知取件地区、行李重量、预约日期</div>
+      </div>
+      <div class="contact-step">
+        <div class="contact-step-num">STEP 03</div>
+        <div class="contact-step-text">确认预约，等待我们上门接货 🎉</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>HKonnect</span> · 毕业轻松无忧，行李一站到家</p>
+  <p style="margin-top:6px;">@港仔在港2026</p>
+</footer>
+
+<script>
+  // Calculator
+  let calcMode = 'weight';
+
+  function onRegionChange() {
+    const region = document.getElementById('region').value;
+    document.getElementById('region-hint').style.display = region === 'other' ? 'block' : 'none';
+    document.getElementById('result-box').classList.remove('show');
+  }
+
+  function switchMode(m) {
+    calcMode = m;
+    document.getElementById('mode-weight').style.display = m === 'weight' ? 'block' : 'none';
+    document.getElementById('mode-vol').style.display = m === 'vol' ? 'block' : 'none';
+    document.getElementById('btn-weight').classList.toggle('active', m === 'weight');
+    document.getElementById('btn-vol').classList.toggle('active', m === 'vol');
+  }
+
+  function calcTieredPrice(kg) {
+    if (kg <= 0) return { total: 0, breakdown: [] };
+    let total = 0;
+    let breakdown = [];
+
+    if (kg <= 30) {
+      total = 900;
+      breakdown.push({ label: '0–30 kg（最低消费）', val: '900 元' });
+    } else if (kg <= 60) {
+      total = 900 + (kg - 30) * 15;
+      breakdown.push({ label: '0–30 kg（最低消费）', val: '900 元' });
+      breakdown.push({ label: `30–${kg.toFixed(1)} kg × 15元/KG`, val: `${((kg-30)*15).toFixed(0)} 元` });
+    } else if (kg <= 100) {
+      total = 900 + 30 * 15 + (kg - 60) * 12;
+      breakdown.push({ label: '0–30 kg（最低消费）', val: '900 元' });
+      breakdown.push({ label: '30–60 kg × 15元/KG', val: '450 元' });
+      breakdown.push({ label: `60–${kg.toFixed(1)} kg × 12元/KG`, val: `${((kg-60)*12).toFixed(0)} 元` });
+    } else {
+      total = 900 + 30 * 15 + 40 * 12 + (kg - 100) * 6;
+      breakdown.push({ label: '0–30 kg（最低消费）', val: '900 元' });
+      breakdown.push({ label: '30–60 kg × 15元/KG', val: '450 元' });
+      breakdown.push({ label: '60–100 kg × 12元/KG', val: '480 元' });
+      breakdown.push({ label: `100–${kg.toFixed(1)} kg × 6元/KG`, val: `${((kg-100)*6).toFixed(0)} 元` });
+    }
+    return { total, breakdown };
+  }
+
+  function calcRegionPrice(kg, region) {
+    // xigong: 16/kg under 30kg, tiered above
+    // shatin: 15/kg under 30kg, tiered above
+    // other: min 900 (refuse under 30kg), tiered above
+    let total = 0;
+    let breakdown = [];
+
+    if (region === 'xigong' || region === 'shatin') {
+      const rate = region === 'xigong' ? 16 : 15;
+      const regionName = region === 'xigong' ? '西贡' : '沙田';
+      if (kg <= 30) {
+        total = kg * rate;
+        breakdown.push({ label: `${kg.toFixed(1)} kg × ${rate}元/KG（${regionName}固定价）`, val: `${total.toFixed(0)} 元` });
+      } else {
+        // first 30kg at fixed rate, then tiered for the rest
+        const first = 30 * rate;
+        breakdown.push({ label: `0–30 kg × ${rate}元/KG（${regionName}固定价）`, val: `${first.toFixed(0)} 元` });
+        total += first;
+        if (kg <= 60) {
+          const extra = (kg - 30) * 15;
+          breakdown.push({ label: `30–${kg.toFixed(1)} kg × 15元/KG`, val: `${extra.toFixed(0)} 元` });
+          total += extra;
+        } else if (kg <= 100) {
+          breakdown.push({ label: '30–60 kg × 15元/KG', val: '450 元' });
+          total += 450;
+          const extra = (kg - 60) * 12;
+          breakdown.push({ label: `60–${kg.toFixed(1)} kg × 12元/KG`, val: `${extra.toFixed(0)} 元` });
+          total += extra;
+        } else {
+          breakdown.push({ label: '30–60 kg × 15元/KG', val: '450 元' });
+          total += 450;
+          breakdown.push({ label: '60–100 kg × 12元/KG', val: '480 元' });
+          total += 480;
+          const extra = (kg - 100) * 6;
+          breakdown.push({ label: `100–${kg.toFixed(1)} kg × 6元/KG`, val: `${extra.toFixed(0)} 元` });
+          total += extra;
+        }
+      }
+    } else {
+      // other: tiered, min 900
+      total = calcTieredPrice(kg).total;
+      breakdown = calcTieredPrice(kg).breakdown;
+    }
+    return { total, breakdown };
+  }
+
+  function calculate() {
+    const region = document.getElementById('region').value;
+    const dest = document.getElementById('dest').value;
+
+    const box = document.getElementById('result-box');
+    box.classList.add('show');
+
+    if (dest === 'remote') {
+      box.innerHTML = `<div style="color:#F7C355;font-size:18px;font-weight:700;margin-bottom:8px;">偏远地区需咨询客服</div>
+        <div style="color:#9BB5B2;font-size:13px;line-height:1.8;">新疆、宁夏、西藏、青海、甘肃、内蒙古等地区价格另议，请添加微信 <strong style="color:#fff;">HKonnect</strong> 咨询报价。</div>`;
+      return;
+    }
+
+    let kg = 0;
+    if (calcMode === 'weight') {
+      kg = parseFloat(document.getElementById('weight').value) || 0;
+    } else {
+      const l = parseFloat(document.getElementById('vol-l').value) || 0;
+      const w = parseFloat(document.getElementById('vol-w').value) || 0;
+      const h = parseFloat(document.getElementById('vol-h').value) || 0;
+      kg = (l * w * h) / 6000;
+    }
+
+    if (kg <= 0) { alert('请输入有效的重量或尺寸'); return; }
+
+    if (region === 'other' && kg < 30) {
+      box.innerHTML = `<div style="color:#F7C355;font-size:18px;font-weight:700;margin-bottom:10px;">重量不足，暂不接散单</div>
+        <div style="color:#9BB5B2;font-size:13px;line-height:1.9;">
+          全港其他地区最低消费 <strong style="color:#fff;">900元（30kg起）</strong>。<br>
+          你目前输入的重量为 <strong style="color:#fff;">${kg.toFixed(1)} kg</strong>，建议：<br>
+          · 选择<strong style="color:#F7C355;">西贡（16元/KG）</strong>或<strong style="color:#F7C355;">沙田（15元/KG）</strong>线路，无最低消费<br>
+          · 或凑满30kg后再预约
+        </div>`;
+      return;
+    }
+
+    const regionLabel = region === 'xigong' ? '新界·西贡' : region === 'shatin' ? '沙田' : '全港其他地区';
+    const { total, breakdown } = calcRegionPrice(kg, region);
+
+    document.getElementById('res-total').textContent = `约 ${Math.round(total)} 元`;
+    document.getElementById('res-sub').textContent = `${regionLabel} · ${kg.toFixed(1)} kg`;
+
+    let bdHTML = '';
+    breakdown.forEach(r => {
+      bdHTML += `<div class="result-row"><span class="label">${r.label}</span><span class="val">${r.val}</span></div>`;
+    });
+    bdHTML += `<div class="result-row" style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:8px;">
+      <span class="label" style="font-weight:700;color:#ccc;">合计</span>
+      <span class="val gold" style="font-size:16px;">${Math.round(total)} 元</span>
+    </div>`;
+    document.getElementById('res-breakdown').innerHTML = bdHTML;
+    document.getElementById('res-note').innerHTML =
+      '以上为估算价格，最终按实际重量与体积重量（长×宽×高÷6000）较高者计算。<br>包装费用另付，偏远地区请咨询客服。';
+  }
+
+  // FAQ toggle
+  function toggleFaq(btn) {
+    const answer = btn.nextElementSibling;
+    const isOpen = answer.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-a').forEach(a => a.classList.remove('open'));
+    document.querySelectorAll('.faq-q').forEach(b => b.classList.remove('open'));
+    if (!isOpen) {
+      answer.classList.add('open');
+      btn.classList.add('open');
+    }
+  }
+
+  // Copy wechat
+  function copyWechat() {
+    navigator.clipboard.writeText('HKonnect').then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '已复制 ✓';
+      btn.style.color = '#7ECFBE';
+      btn.style.borderColor = '#7ECFBE';
+      setTimeout(() => {
+        btn.textContent = '复制微信号';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
+    });
+  }
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
