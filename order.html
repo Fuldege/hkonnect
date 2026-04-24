@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>立即下单 · HKonnect 2026</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=DM+Serif+Display&display=swap');
+
+:root {
+  --dark: #1C2B2A;
+  --dark2: #243534;
+  --teal: #7ECFBE;
+  --gold: #F7C355;
+  --gold-dark: #C89A10;
+  --cream: #FAFAF7;
+  --white: #ffffff;
+  --text: #1A1A1A;
+  --muted: #6B6B6B;
+  --border: #E5E0D5;
+  --red: #D94F3D;
+  --success: #2D7D5A;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: #F2F0EB;
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* NAV */
+nav {
+  background: var(--dark);
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-brand { font-size: 20px; font-weight: 900; color: #fff; }
+.nav-brand span { color: var(--gold); }
+.nav-back {
+  color: #9BB5B2;
+  text-decoration: none;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: #fff; }
+
+/* LAYOUT */
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+}
+
+/* STEPS INDICATOR */
+.steps-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 32px;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+}
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+.step-circle {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #E5E0D5;
+  color: #AAA;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.3s;
+}
+.step-circle.active { background: var(--dark); color: var(--gold); }
+.step-circle.done { background: var(--success); color: #fff; }
+.step-text { font-size: 12px; color: #AAA; font-weight: 500; transition: color 0.3s; }
+.step-text.active { color: var(--dark); }
+.step-line { flex: 1; height: 1px; background: #E5E0D5; margin: 0 8px; }
+.step-line.done { background: var(--success); }
+
+/* CARDS */
+.card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-title-icon {
+  width: 32px; height: 32px;
+  background: var(--dark);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+
+/* FORM */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+.form-full { grid-column: 1 / -1; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+.field label span { color: var(--red); margin-left: 2px; }
+.field input,
+.field select,
+.field textarea {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--cream);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--dark);
+  box-shadow: 0 0 0 3px rgba(28,43,42,0.08);
+  background: #fff;
+}
+.field input.error,
+.field select.error,
+.field textarea.error { border-color: var(--red); }
+.field textarea { resize: vertical; min-height: 80px; }
+.field-hint { font-size: 11px; color: #BBB; margin-top: 2px; }
+
+/* REGION SELECTOR */
+.region-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.region-pill {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--cream);
+  text-align: left;
+}
+.region-pill:hover { border-color: var(--dark); }
+.region-pill.selected { border-color: var(--dark); background: var(--dark); }
+.region-pill-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.region-pill.selected .region-pill-name { color: var(--gold); }
+.region-pill-price { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.region-pill.selected .region-pill-price { color: #9BB5B2; }
+
+/* WEIGHT INPUT */
+.weight-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+.weight-row .field { flex: 1; }
+.vol-toggle-btn {
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: all 0.2s;
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+.vol-toggle-btn:hover { border-color: var(--dark); color: var(--dark); }
+.vol-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* QUOTE CARD */
+.quote-card {
+  background: var(--dark);
+  border-radius: 14px;
+  padding: 24px;
+  margin-top: 16px;
+}
+.quote-label { font-size: 11px; color: var(--teal); letter-spacing: 2px; margin-bottom: 12px; }
+.quote-total { font-size: 40px; font-weight: 900; color: var(--gold); line-height: 1; }
+.quote-total-sub { font-size: 13px; color: #9BB5B2; margin-top: 4px; margin-bottom: 16px; }
+.quote-breakdown {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.quote-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+.quote-row .ql { color: #9BB5B2; }
+.quote-row .qv { color: #fff; font-weight: 500; }
+.quote-row .qv.gold { color: var(--gold); font-weight: 700; font-size: 15px; }
+.deposit-box {
+  background: rgba(247,195,85,0.12);
+  border: 1px solid rgba(247,195,85,0.3);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.deposit-label { font-size: 12px; color: var(--teal); }
+.deposit-amount { font-size: 22px; font-weight: 900; color: var(--gold); }
+
+/* PAYMENT */
+.pay-methods {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+@media (max-width: 480px) { .pay-methods { grid-template-columns: 1fr; } }
+.pay-method {
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  background: var(--cream);
+}
+.pay-method:hover { border-color: var(--dark); }
+.pay-method.selected { border-color: var(--dark); background: var(--dark); }
+.pay-method-icon { font-size: 28px; margin-bottom: 6px; }
+.pay-method-name { font-size: 14px; font-weight: 700; color: var(--text); }
+.pay-method.selected .pay-method-name { color: var(--gold); }
+.pay-method-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.pay-method.selected .pay-method-sub { color: #9BB5B2; }
+
+.qr-display {
+  text-align: center;
+  padding: 20px;
+  background: var(--cream);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.qr-display img {
+  width: 180px;
+  height: 180px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  object-fit: cover;
+}
+.qr-amount {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.qr-hint { font-size: 12px; color: var(--muted); }
+
+/* UPLOAD */
+.upload-area {
+  border: 2px dashed var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--cream);
+  position: relative;
+}
+.upload-area:hover { border-color: var(--dark); background: #fff; }
+.upload-area.has-file { border-color: var(--success); border-style: solid; background: #F0FFF8; }
+.upload-icon { font-size: 28px; margin-bottom: 8px; }
+.upload-text { font-size: 14px; font-weight: 500; color: var(--muted); }
+.upload-sub { font-size: 12px; color: #BBB; margin-top: 4px; }
+.upload-area input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-preview {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 8px;
+  margin: 10px auto 0;
+  display: none;
+  object-fit: cover;
+}
+
+/* CONFIRM SUMMARY */
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 480px) { .summary-grid { grid-template-columns: 1fr; } }
+.summary-item {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.summary-item.full { grid-column: 1 / -1; }
+.summary-key { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.summary-val { font-size: 13px; font-weight: 500; color: var(--text); }
+
+/* BUTTONS */
+.btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+.btn-next {
+  flex: 1;
+  background: var(--dark);
+  color: var(--gold);
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  letter-spacing: 0.5px;
+}
+.btn-next:hover { opacity: 0.85; }
+.btn-next:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-back-step {
+  background: var(--cream);
+  color: var(--muted);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 15px 20px;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-back-step:hover { border-color: var(--dark); color: var(--dark); }
+
+/* SUCCESS */
+.success-screen {
+  text-align: center;
+  padding: 48px 20px;
+}
+.success-icon {
+  width: 72px; height: 72px;
+  background: var(--dark);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 20px;
+}
+.success-title { font-size: 26px; font-weight: 900; color: var(--dark); margin-bottom: 8px; }
+.success-sub { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+.success-order {
+  background: var(--dark);
+  color: var(--gold);
+  font-size: 18px;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 10px;
+  display: inline-block;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+.wechat-reminder {
+  background: #F0FFF8;
+  border: 1px solid #B8E8D4;
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 13px;
+  color: var(--success);
+  line-height: 1.7;
+  margin-top: 16px;
+}
+
+/* STEP PANELS */
+.step-panel { display: none; }
+.step-panel.active { display: block; }
+
+/* ERROR MSG */
+.err-msg { font-size: 11px; color: var(--red); margin-top: 3px; display: none; }
+.err-msg.show { display: block; }
+
+/* REMOTE WARNING */
+.remote-warn {
+  background: #FFF8E0;
+  border: 1px solid #F7C355;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 12px;
+  color: #8B6800;
+  line-height: 1.7;
+  margin-top: 10px;
+  display: none;
+}
+.remote-warn.show { display: block; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">HK<span>ONNECT</span></div>
+  <a href="index.html" class="nav-back">← 返回主页</a>
+</nav>
+
+<div class="page">
+
+  <!-- STEPS BAR -->
+  <div class="steps-bar">
+    <div class="step-item">
+      <div class="step-circle active" id="sc1">1</div>
+      <div class="step-text active" id="st1">填写资料</div>
+    </div>
+    <div class="step-line" id="sl1"></div>
+    <div class="step-item">
+      <div class="step-circle" id="sc2">2</div>
+      <div class="step-text" id="st2">确认报价</div>
+    </div>
+    <div class="step-line" id="sl2"></div>
+    <div class="step-item">
+      <div class="step-circle" id="sc3">3</div>
+      <div class="step-text" id="st3">支付定金</div>
+    </div>
+    <div class="step-line" id="sl3"></div>
+    <div class="step-item">
+      <div class="step-circle" id="sc4">4</div>
+      <div class="step-text" id="st4">完成预订</div>
+    </div>
+  </div>
+
+  <!-- STEP 1: 填写资料 -->
+  <div class="step-panel active" id="panel1">
+
+    <div class="card">
+      <div class="card-title">
+        <div class="card-title-icon">👤</div>
+        联系信息
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label>姓名<span>*</span></label>
+          <input type="text" id="f-name" placeholder="你的姓名">
+          <div class="err-msg" id="e-name">请输入姓名</div>
+        </div>
+        <div class="field">
+          <label>手机号码<span>*</span></label>
+          <input type="tel" id="f-phone" placeholder="内地手机号码">
+          <div class="err-msg" id="e-phone">请输入联系方式</div>
+        </div>
+        <div class="field">
+          <label>微信号</label>
+          <input type="text" id="f-wechat" placeholder="方便客服联系">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="card-title-icon">📦</div>
+        取货信息
+      </div>
+      <div class="form-grid">
+
+        <div class="field form-full">
+          <label>取货地区<span>*</span></label>
+          <div class="region-pills" id="region-pills">
+            <div class="region-pill" data-region="xigong" onclick="selectRegion(this)">
+              <div class="region-pill-name">新界 · 西贡</div>
+              <div class="region-pill-price">固定 16元/KG（30kg内）</div>
+            </div>
+            <div class="region-pill" data-region="shatin" onclick="selectRegion(this)">
+              <div class="region-pill-name">沙田</div>
+              <div class="region-pill-price">固定 15元/KG（30kg内）</div>
+            </div>
+            <div class="region-pill" data-region="other" onclick="selectRegion(this)">
+              <div class="region-pill-name">全港其他地区</div>
+              <div class="region-pill-price">阶梯定价，30kg起接单</div>
+            </div>
+          </div>
+          <div class="err-msg" id="e-region">请选择取货地区</div>
+          <div class="remote-warn" id="other-warn">
+            ⚠️ 其他地区最低消费 <strong>900元</strong>，需寄送 30kg 以上方可预约。
+          </div>
+        </div>
+
+        <div class="field form-full">
+          <label>取货详细地址<span>*</span></label>
+          <input type="text" id="f-pickup" placeholder="例如：沙田区XXX道XX号XX楼">
+          <div class="err-msg" id="e-pickup">请输入取货地址</div>
+        </div>
+
+        <div class="field">
+          <label>出发日期<span>*</span></label>
+          <input type="date" id="f-pickdate" min="">
+          <div class="err-msg" id="e-pickdate">请选择日期（至少提前2天预约）</div>
+        </div>
+
+        <div class="field">
+          <label>出发时间<span>*</span></label>
+          <select id="f-picktime">
+            <option value="">请选择时间</option>
+            <option value="07:00">07:00</option>
+            <option value="08:00">08:00</option>
+            <option value="09:00">09:00</option>
+            <option value="10:00">10:00</option>
+            <option value="11:00">11:00</option>
+            <option value="12:00">12:00（中午）</option>
+            <option value="13:00">13:00</option>
+            <option value="14:00">14:00</option>
+            <option value="15:00">15:00</option>
+            <option value="16:00">16:00</option>
+            <option value="17:00">17:00</option>
+            <option value="18:00">18:00</option>
+            <option value="19:00">19:00</option>
+            <option value="20:00">20:00</option>
+            <option value="21:00">21:00</option>
+            <option value="22:00">22:00（晚上10点）</option>
+          </select>
+          <div class="field-hint">07:00–22:00 · 特殊时间需求请在备注说明</div>
+          <div class="err-msg" id="e-picktime">请选择出发时间</div>
+        </div>
+
+        <div class="field form-full" style="background:#FFF8E0;border-radius:8px;padding:12px 14px;border:1px solid #F7C355;">
+          <div style="font-size:12px;color:#8B6800;line-height:1.7;">
+            📌 <strong>温馨提示：</strong>取货与过关为同一天，你需要<strong>本人随车</strong>一同前往口岸过关。我们会在出发前联系你确认取货时间。
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="card-title-icon">⚖️</div>
+        行李重量
+      </div>
+
+      <div class="weight-row">
+        <div class="field" style="flex:1;">
+          <label>实际重量（KG）<span>*</span></label>
+          <input type="number" id="f-weight" placeholder="例如：45" min="0" step="0.1" oninput="calcQuote()">
+        </div>
+        <button class="vol-toggle-btn" onclick="toggleVol()" id="vol-btn">+ 体积计算</button>
+      </div>
+      <div id="vol-section" style="display:none;">
+        <div style="font-size:12px;color:var(--muted);margin-top:12px;margin-bottom:6px;">尺寸（cm）— 体积重量 = 长×宽×高÷6000，取较大值计费</div>
+        <div class="vol-fields">
+          <input type="number" id="vl" placeholder="长" min="0" oninput="calcVol()">
+          <input type="number" id="vw" placeholder="宽" min="0" oninput="calcVol()">
+          <input type="number" id="vh" placeholder="高" min="0" oninput="calcVol()">
+        </div>
+        <div id="vol-result" style="font-size:12px;color:var(--muted);margin-top:8px;"></div>
+      </div>
+      <div class="err-msg" id="e-weight">请输入行李重量</div>
+      <div class="remote-warn" id="weight-warn" style="margin-top:10px;">
+        ⚠️ 其他地区不接受30kg以下散单，请调整重量或选择西贡/沙田线路。
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="card-title-icon">🏠</div>
+        寄送信息
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label>寄送省份<span>*</span></label>
+          <select id="f-destprov" onchange="checkRemote()">
+            <option value="">请选择省份</option>
+            <option value="normal_北京">北京</option>
+            <option value="normal_上海">上海</option>
+            <option value="normal_广东">广东</option>
+            <option value="normal_浙江">浙江</option>
+            <option value="normal_江苏">江苏</option>
+            <option value="normal_四川">四川</option>
+            <option value="normal_湖北">湖北</option>
+            <option value="normal_湖南">湖南</option>
+            <option value="normal_福建">福建</option>
+            <option value="normal_山东">山东</option>
+            <option value="normal_河南">河南</option>
+            <option value="normal_河北">河北</option>
+            <option value="normal_安徽">安徽</option>
+            <option value="normal_江西">江西</option>
+            <option value="normal_重庆">重庆</option>
+            <option value="normal_陕西">陕西</option>
+            <option value="normal_云南">云南</option>
+            <option value="normal_辽宁">辽宁</option>
+            <option value="normal_黑龙江">黑龙江</option>
+            <option value="normal_吉林">吉林</option>
+            <option value="normal_山西">山西</option>
+            <option value="normal_贵州">贵州</option>
+            <option value="normal_广西">广西</option>
+            <option value="normal_海南">海南</option>
+            <option value="normal_天津">天津</option>
+            <option value="normal_其他">其他普通地区</option>
+            <option value="remote_新疆">新疆 ⚠️</option>
+            <option value="remote_西藏">西藏 ⚠️</option>
+            <option value="remote_青海">青海 ⚠️</option>
+            <option value="remote_甘肃">甘肃 ⚠️</option>
+            <option value="remote_宁夏">宁夏 ⚠️</option>
+            <option value="remote_内蒙古">内蒙古 ⚠️</option>
+          </select>
+          <div class="err-msg" id="e-destprov">请选择寄送省份</div>
+        </div>
+        <div class="field">
+          <label>寄送城市/区<span>*</span></label>
+          <input type="text" id="f-destcity" placeholder="例如：深圳市南山区">
+          <div class="err-msg" id="e-destcity">请输入城市</div>
+        </div>
+        <div class="field form-full">
+          <label>详细收货地址<span>*</span></label>
+          <input type="text" id="f-destaddr" placeholder="街道、门牌号、楼层">
+          <div class="err-msg" id="e-destaddr">请输入收货地址</div>
+        </div>
+        <div class="field form-full">
+          <label>收件人姓名<span>*</span></label>
+          <input type="text" id="f-recvname" placeholder="收件人全名">
+          <div class="err-msg" id="e-recvname">请输入收件人姓名</div>
+        </div>
+        <div class="field form-full">
+          <label>收件人电话<span>*</span></label>
+          <input type="tel" id="f-recvphone" placeholder="收件人手机号码">
+          <div class="err-msg" id="e-recvphone">请输入收件人电话</div>
+        </div>
+        <div class="remote-warn form-full" id="dest-remote-warn">
+          ⚠️ 你选择的是<strong>偏远地区</strong>，运费需客服另行报价。提交后我们会尽快联系你确认最终费用。
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="card-title-icon">📝</div>
+        备注（选填）
+      </div>
+      <div class="field">
+        <textarea id="f-note" placeholder="例如：有大件家具需要提前安排、需要小推车等"></textarea>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-next" onclick="goStep2()">查看报价 →</button>
+    </div>
+
+  </div>
+
+  <!-- STEP 2: 确认报价 -->
+  <div class="step-panel" id="panel2">
+
+    <div class="card">
+      <div class="card-title">
+        <div class="card-title-icon">📋</div>
+        订单摘要
+      </div>
+      <div class="summary-grid" id="summary-grid"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="card-title-icon">💰</div>
+        费用明细
+      </div>
+      <div class="quote-card" id="quote-display"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back-step" onclick="goStep(1)">← 修改资料</button>
+      <button class="btn-next" onclick="goStep3()">确认，去支付定金 →</button>
+    </div>
+
+  </div>
+
+  <!-- STEP 3: 支付定金 -->
+  <div class="step-panel" id="panel3">
+
+    <div class="card">
+      <div class="card-title">
+        <div class="card-title-icon">💳</div>
+        选择支付方式
+      </div>
+      <div class="pay-methods">
+        <div class="pay-method selected" id="pm-wechat" onclick="selectPay('wechat')">
+          <div class="pay-method-icon">💚</div>
+          <div class="pay-method-name">微信支付</div>
+          <div class="pay-method-sub">扫码付款</div>
+        </div>
+        <div class="pay-method" id="pm-alipay" onclick="selectPay('alipay')">
+          <div class="pay-method-icon">💙</div>
+          <div class="pay-method-name">支付宝</div>
+          <div class="pay-method-sub">扫码付款</div>
+        </div>
+      </div>
+
+      <div class="qr-display" id="qr-display">
+        <!-- Placeholder QR codes -->
+        <div id="qr-wechat-box">
+          <img src="wechat_qr.jpeg" style="width:200px;height:200px;object-fit:contain;border-radius:8px;margin:0 auto 12px;display:block;">
+          <div style="font-size:11px;color:#07C160;font-weight:700;margin-bottom:4px;">微信收款码 · FUL(*静)</div>
+          <div class="qr-amount" id="qr-amount-wechat"></div>
+          <div class="qr-hint">截图保存后，打开微信「扫一扫」→「相册」选择此图</div>
+        </div>
+        <div id="qr-alipay-box" style="display:none;">
+          <img src="alipay_qr.jpeg" style="width:200px;height:200px;object-fit:contain;border-radius:8px;margin:0 auto 12px;display:block;">
+          <div style="font-size:11px;color:#1677FF;font-weight:700;margin-bottom:4px;">支付宝收款码 · Fuldege(*静)</div>
+          <div class="qr-amount" id="qr-amount-alipay"></div>
+          <div class="qr-hint">截图保存后，打开支付宝「扫一扫」→「相册」选择此图</div>
+        </div>
+      </div>
+
+      <div style="background:#FFF8E0;border-radius:10px;padding:14px 16px;font-size:13px;color:#8B6800;line-height:1.7;margin-top:4px;">
+        <strong>付款备注请写：</strong><span id="pay-remark" style="font-weight:700;color:#1A1A1A;"></span><br>
+        付款后请上传截图完成预订
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <div class="card-title-icon">📸</div>
+        上传付款截图
+      </div>
+      <div class="upload-area" id="upload-area">
+        <div class="upload-icon">📎</div>
+        <div class="upload-text">点击上传付款截图</div>
+        <div class="upload-sub">支持 JPG、PNG 格式</div>
+        <input type="file" accept="image/*" onchange="handleUpload(this)">
+        <img id="upload-preview" class="upload-preview">
+      </div>
+      <div class="err-msg" id="e-upload" style="margin-top:8px;">请上传付款截图</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-back-step" onclick="goStep(2)">← 返回</button>
+      <button class="btn-next" onclick="submitOrder()">提交预订 ✓</button>
+    </div>
+
+  </div>
+
+  <!-- STEP 4: 成功 -->
+  <div class="step-panel" id="panel4">
+    <div class="card">
+      <div class="success-screen">
+        <div class="success-icon">🎉</div>
+        <div class="success-title">预订成功！</div>
+        <div class="success-sub">
+          你的订单已提交，我们会在 <strong>24小时内</strong> 通过微信联系你确认详情。
+        </div>
+        <div class="success-order" id="success-order-no"></div>
+        <div style="font-size:13px;color:var(--muted);">请截图保存此订单号</div>
+        <div class="wechat-reminder">
+          💬 如未收到联系，请主动添加客服微信：<strong>HKonnect</strong><br>
+          告知订单号，我们会尽快处理 😊
+        </div>
+        <div style="margin-top:24px;">
+          <a href="index.html" style="color:var(--muted);font-size:13px;text-decoration:none;">← 返回主页</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── State ───
+let selectedRegion = null;
+let selectedPay = 'wechat';
+let uploadedFile = null;
+let quoteData = { total: 0, deposit: 0, breakdown: [], isRemote: false, kg: 0 };
+
+// ─── Init ───
+window.onload = () => {
+  const today = new Date();
+  const minDate = new Date(today);
+  minDate.setDate(today.getDate() + 2);
+  document.getElementById('f-pickdate').min = minDate.toISOString().split('T')[0];
+  document.getElementById('f-crossdate').min = minDate.toISOString().split('T')[0];
+};
+
+// ─── Region ───
+function selectRegion(el) {
+  document.querySelectorAll('.region-pill').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedRegion = el.dataset.region;
+  document.getElementById('other-warn').classList.toggle('show', selectedRegion === 'other');
+  calcQuote();
+  checkWeightWarn();
+}
+
+// ─── Volume ───
+let showVol = false;
+function toggleVol() {
+  showVol = !showVol;
+  document.getElementById('vol-section').style.display = showVol ? 'block' : 'none';
+  document.getElementById('vol-btn').textContent = showVol ? '− 隐藏体积' : '+ 体积计算';
+}
+function calcVol() {
+  const l = parseFloat(document.getElementById('vl').value) || 0;
+  const w = parseFloat(document.getElementById('vw').value) || 0;
+  const h = parseFloat(document.getElementById('vh').value) || 0;
+  if (l && w && h) {
+    const volKg = (l * w * h) / 6000;
+    document.getElementById('vol-result').textContent = `体积重量 = ${volKg.toFixed(2)} kg`;
+    const actualKg = parseFloat(document.getElementById('f-weight').value) || 0;
+    if (volKg > actualKg) {
+      document.getElementById('vol-result').textContent += `（体积重量更大，将按 ${volKg.toFixed(2)} kg 计费）`;
+      document.getElementById('f-weight').value = volKg.toFixed(2);
+    }
+    calcQuote();
+  }
+}
+
+// ─── Pricing ───
+function calcTiered(kg) {
+  let total = 0, breakdown = [];
+  if (kg <= 30) {
+    total = 900;
+    breakdown.push({ l: '0–30 kg（最低消费）', v: '900 元' });
+  } else if (kg <= 60) {
+    total = 900 + (kg-30)*15;
+    breakdown.push({ l:'0–30 kg（最低消费）', v:'900 元' });
+    breakdown.push({ l:`30–${kg.toFixed(1)} kg × 15元/KG`, v:`${((kg-30)*15).toFixed(0)} 元` });
+  } else if (kg <= 100) {
+    total = 900 + 450 + (kg-60)*12;
+    breakdown.push({ l:'0–30 kg', v:'900 元' });
+    breakdown.push({ l:'30–60 kg × 15元/KG', v:'450 元' });
+    breakdown.push({ l:`60–${kg.toFixed(1)} kg × 12元/KG`, v:`${((kg-60)*12).toFixed(0)} 元` });
+  } else {
+    total = 900 + 450 + 480 + (kg-100)*6;
+    breakdown.push({ l:'0–30 kg', v:'900 元' });
+    breakdown.push({ l:'30–60 kg × 15元/KG', v:'450 元' });
+    breakdown.push({ l:'60–100 kg × 12元/KG', v:'480 元' });
+    breakdown.push({ l:`100–${kg.toFixed(1)} kg × 6元/KG`, v:`${((kg-100)*6).toFixed(0)} 元` });
+  }
+  return { total, breakdown };
+}
+
+function calcRegion(kg, region) {
+  if (region === 'xigong' || region === 'shatin') {
+    const rate = region === 'xigong' ? 16 : 15;
+    const name = region === 'xigong' ? '西贡' : '沙田';
+    let total = 0, breakdown = [];
+    if (kg <= 30) {
+      total = kg * rate;
+      breakdown.push({ l:`${kg.toFixed(1)} kg × ${rate}元/KG（${name}固定价）`, v:`${total.toFixed(0)} 元` });
+    } else {
+      const first = 30 * rate;
+      total += first;
+      breakdown.push({ l:`0–30 kg × ${rate}元/KG（${name}固定价）`, v:`${first.toFixed(0)} 元` });
+      if (kg <= 60) {
+        const e = (kg-30)*15; total += e;
+        breakdown.push({ l:`30–${kg.toFixed(1)} kg × 15元/KG`, v:`${e.toFixed(0)} 元` });
+      } else if (kg <= 100) {
+        total += 450; breakdown.push({ l:'30–60 kg × 15元/KG', v:'450 元' });
+        const e = (kg-60)*12; total += e;
+        breakdown.push({ l:`60–${kg.toFixed(1)} kg × 12元/KG`, v:`${e.toFixed(0)} 元` });
+      } else {
+        total += 450; breakdown.push({ l:'30–60 kg × 15元/KG', v:'450 元' });
+        total += 480; breakdown.push({ l:'60–100 kg × 12元/KG', v:'480 元' });
+        const e = (kg-100)*6; total += e;
+        breakdown.push({ l:`100–${kg.toFixed(1)} kg × 6元/KG`, v:`${e.toFixed(0)} 元` });
+      }
+    }
+    return { total, breakdown };
+  }
+  return calcTiered(kg);
+}
+
+function calcQuote() {
+  const kg = parseFloat(document.getElementById('f-weight').value) || 0;
+  if (!selectedRegion || kg <= 0) return;
+  const { total, breakdown } = calcRegion(kg, selectedRegion);
+  const deposit = Math.round(total * 0.3);
+  quoteData = { total: Math.round(total), deposit, breakdown, kg, isRemote: false };
+}
+
+function checkRemote() {
+  const val = document.getElementById('f-destprov').value;
+  const isRemote = val.startsWith('remote_');
+  document.getElementById('dest-remote-warn').classList.toggle('show', isRemote);
+  quoteData.isRemote = isRemote;
+}
+
+function checkWeightWarn() {
+  const kg = parseFloat(document.getElementById('f-weight').value) || 0;
+  const show = selectedRegion === 'other' && kg > 0 && kg < 30;
+  document.getElementById('weight-warn').classList.toggle('show', show);
+}
+
+// ─── Upload ───
+function handleUpload(input) {
+  if (input.files && input.files[0]) {
+    uploadedFile = input.files[0];
+    const reader = new FileReader();
+    reader.onload = e => {
+      const prev = document.getElementById('upload-preview');
+      prev.src = e.target.result;
+      prev.style.display = 'block';
+      document.getElementById('upload-area').classList.add('has-file');
+      document.querySelector('#upload-area .upload-text').textContent = '✓ 截图已上传';
+    };
+    reader.readAsDataURL(uploadedFile);
+  }
+}
+
+// ─── Pay method ───
+function selectPay(method) {
+  selectedPay = method;
+  document.getElementById('pm-wechat').classList.toggle('selected', method === 'wechat');
+  document.getElementById('pm-alipay').classList.toggle('selected', method === 'alipay');
+  document.getElementById('qr-wechat-box').style.display = method === 'wechat' ? 'block' : 'none';
+  document.getElementById('qr-alipay-box').style.display = method === 'alipay' ? 'block' : 'none';
+}
+
+// ─── Validation ───
+function validate1() {
+  let ok = true;
+  const required = [
+    ['f-name','e-name'], ['f-phone','e-phone'],
+    ['f-pickup','e-pickup'], ['f-pickdate','e-pickdate'],
+    ['f-picktime','e-picktime'],
+    ['f-destprov','e-destprov'], ['f-destcity','e-destcity'],
+    ['f-destaddr','e-destaddr'], ['f-recvname','e-recvname'],
+    ['f-recvphone','e-recvphone']
+  ];
+  required.forEach(([fid, eid]) => {
+    const el = document.getElementById(fid);
+    const err = document.getElementById(eid);
+    if (!el.value.trim()) {
+      el.classList.add('error'); err.classList.add('show'); ok = false;
+    } else {
+      el.classList.remove('error'); err.classList.remove('show');
+    }
+  });
+  if (!selectedRegion) {
+    document.getElementById('e-region').classList.add('show'); ok = false;
+  } else {
+    document.getElementById('e-region').classList.remove('show');
+  }
+  const kg = parseFloat(document.getElementById('f-weight').value) || 0;
+  if (kg <= 0) {
+    document.getElementById('e-weight').classList.add('show'); ok = false;
+  } else {
+    document.getElementById('e-weight').classList.remove('show');
+  }
+  if (selectedRegion === 'other' && kg < 30) {
+    document.getElementById('weight-warn').classList.add('show'); ok = false;
+  }
+  return ok;
+}
+
+// ─── Step navigation ───
+function goStep(n) {
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById(`panel${n}`).classList.add('active');
+  // update bar
+  for (let i = 1; i <= 4; i++) {
+    const sc = document.getElementById(`sc${i}`);
+    const st = document.getElementById(`st${i}`);
+    const sl = document.getElementById(`sl${i}`);
+    if (i < n) {
+      sc.classList.add('done'); sc.classList.remove('active'); sc.textContent = '✓';
+      st.classList.remove('active');
+      if (sl) sl.classList.add('done');
+    } else if (i === n) {
+      sc.classList.add('active'); sc.classList.remove('done');
+      sc.textContent = i;
+      st.classList.add('active');
+    } else {
+      sc.classList.remove('active','done'); sc.textContent = i;
+      st.classList.remove('active');
+      if (sl) sl.classList.remove('done');
+    }
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goStep2() {
+  if (!validate1()) return;
+  calcQuote();
+  buildSummary();
+  buildQuote();
+  goStep(2);
+}
+
+function goStep3() {
+  // set deposit amounts and remark
+  const name = document.getElementById('f-name').value;
+  const depText = quoteData.isRemote
+    ? '偏远地区，定金待客服确认'
+    : `¥${quoteData.deposit} 元（总价30%）`;
+  document.getElementById('qr-amount-wechat').textContent = quoteData.isRemote ? '定金金额待确认' : `定金 ¥${quoteData.deposit}`;
+  document.getElementById('qr-amount-alipay').textContent = quoteData.isRemote ? '定金金额待确认' : `定金 ¥${quoteData.deposit}`;
+  document.getElementById('pay-remark').textContent = `HKonnect-${name}`;
+  goStep(3);
+}
+
+// ─── Build UI ───
+function buildSummary() {
+  const prov = document.getElementById('f-destprov').value.split('_')[1] || '';
+  const regionNames = { xigong:'新界·西贡', shatin:'沙田', other:'全港其他地区' };
+  const items = [
+    { k:'姓名', v: document.getElementById('f-name').value },
+    { k:'联系电话', v: document.getElementById('f-phone').value },
+    { k:'取货地区', v: regionNames[selectedRegion] },
+    { k:'取货地址', v: document.getElementById('f-pickup').value },
+    { k:'出发日期及时间', v: `${document.getElementById('f-pickdate').value} ${document.getElementById('f-picktime').value}` },
+    { k:'行李重量', v: `${quoteData.kg.toFixed(1)} kg` },
+    { k:'寄送省份', v: prov },
+    { k:'收货城市', v: document.getElementById('f-destcity').value },
+    { k:'收货地址', v: document.getElementById('f-destaddr').value, full: true },
+    { k:'收件人', v: document.getElementById('f-recvname').value },
+    { k:'收件人电话', v: document.getElementById('f-recvphone').value },
+  ];
+  const note = document.getElementById('f-note').value;
+  if (note) items.push({ k:'备注', v: note, full: true });
+  document.getElementById('summary-grid').innerHTML = items.map(it =>
+    `<div class="summary-item${it.full?' full':''}"><div class="summary-key">${it.k}</div><div class="summary-val">${it.v}</div></div>`
+  ).join('');
+}
+
+function buildQuote() {
+  const { total, deposit, breakdown, isRemote } = quoteData;
+  let html = `<div class="quote-label">— 费用估算 —</div>`;
+  if (isRemote) {
+    html += `<div style="color:#F7C355;font-size:20px;font-weight:700;margin-bottom:8px;">偏远地区另行报价</div>
+      <div style="color:#9BB5B2;font-size:13px;line-height:1.8;">你选择的是偏远地区，最终费用由客服确认后通知。定金金额将由客服告知。</div>`;
+  } else {
+    html += `<div class="quote-total">¥${total}</div>
+      <div class="quote-total-sub">预估总费用（实际按称重确认）</div>
+      <div class="quote-breakdown">`;
+    breakdown.forEach(r => {
+      html += `<div class="quote-row"><span class="ql">${r.l}</span><span class="qv">${r.v}</span></div>`;
+    });
+    html += `<div class="quote-row" style="border-top:1px solid rgba(255,255,255,0.1);margin-top:8px;padding-top:10px;">
+      <span class="ql" style="font-weight:700;color:#ccc;">合计</span>
+      <span class="qv gold">¥${total} 元</span>
+    </div></div>
+    <div class="deposit-box">
+      <div><div class="deposit-label">需支付定金（总价30%）</div><div style="font-size:11px;color:#5A8A82;margin-top:2px;">余款于取货时现付</div></div>
+      <div class="deposit-amount">¥${deposit}</div>
+    </div>`;
+  }
+  document.getElementById('quote-display').innerHTML = html;
+}
+
+// ─── Submit ───
+function submitOrder() {
+  if (!uploadedFile) {
+    document.getElementById('e-upload').classList.add('show');
+    return;
+  }
+  document.getElementById('e-upload').classList.remove('show');
+
+  // Generate order number
+  const orderNo = 'HK' + Date.now().toString().slice(-8);
+  document.getElementById('success-order-no').textContent = `订单号：${orderNo}`;
+
+  // In real deployment: submit to Google Sheets via Apps Script
+  // For now, show success screen
+  goStep(4);
+}
+</script>
+</body>
+</html>
